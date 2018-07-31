@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.Comment;
+import pl.coderslab.entity.House;
 import pl.coderslab.entity.Rating;
 import pl.coderslab.repository.HouseRepository;
 
@@ -39,6 +40,35 @@ public class HouseController {
         List<Comment> comments = houseRepository.findOne(id).getCommentList();
         model.addAttribute("comments", comments);
         return "allComments"  ;
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable long id, Model model) {
+
+        double resultRating = 0.0;
+        List<Rating> ratings = houseRepository.findOne(id).getRatingList();
+        for (Rating r : ratings) {
+            resultRating += r.getRating();
+        }
+        resultRating = resultRating/ratings.size();
+        model.addAttribute("resultRating", String.format( "%.2f", resultRating ));
+        model.addAttribute("ratingsSize", ratings.size());
+        List<Comment> comments = houseRepository.findOne(id).getCommentList();
+        model.addAttribute("comments", comments);
+
+
+
+        return "details"  ;
+    }
+
+
+
+    @GetMapping("/all")
+    public String allHouses(Model model) {
+
+        List<House> houseList = houseRepository.findAll();
+        model.addAttribute("houseList", houseList);
+        return "allHouses"  ;
     }
 
 
