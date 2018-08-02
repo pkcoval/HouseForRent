@@ -30,7 +30,7 @@ public class House {
     private List<Comment> commentList;
     @OneToMany( mappedBy = "houseToRent")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList;
 
     public House() {
     }

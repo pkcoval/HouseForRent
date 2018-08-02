@@ -11,7 +11,7 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank
+    @NotNull
     private int rating;
     @ManyToOne
     House house;

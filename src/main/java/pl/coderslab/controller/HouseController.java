@@ -76,8 +76,10 @@ public class HouseController {
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
     public String processEdit(@ModelAttribute House houseToRent, BindingResult result,  @PathVariable long id) {
         houseRepository.save(houseToRent);
-        System.out.println(houseToRent.getUserList().get(0).getFirstName());
-        houseToRent.getUserList().get(0).setHouseToRent(houseToRent);
+        User user =houseToRent.getUserList().get(0);
+        user.setHouseToRent(houseToRent);
+        userRepository.save(user);
+
         return "domek wynajety";
     }
 
