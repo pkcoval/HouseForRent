@@ -7,4 +7,6 @@ import pl.coderslab.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findById(long id);
 }

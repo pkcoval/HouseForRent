@@ -13,7 +13,7 @@ public class HomeController {
 
 
     @GetMapping("/")
-    @ResponseBody
+
     public String indexAction() {
         return "index";
     }

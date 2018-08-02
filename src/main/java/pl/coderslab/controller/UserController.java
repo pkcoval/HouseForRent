@@ -31,4 +31,13 @@ public class UserController {
         userRepository.save(user);
         return "user dodany";
     }
+    @ResponseBody
+    @GetMapping("/rent/{id}")
+    public String rentHous(@PathVariable long id) {
+        User user = userRepository.findOne(id);
+        return user.getHouseToRent().getName();
+
+    }
+
+
 }

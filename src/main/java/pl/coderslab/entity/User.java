@@ -1,13 +1,13 @@
 package pl.coderslab.entity;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -15,14 +15,31 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
+    @NotBlank
     private String firstName;
-    @NotNull
+    @NotBlank
     private String lastName;
     @Email
     private String email;
+    @ManyToOne
+    private House houseToRent;
+
 
     public User() {
+    }
+
+
+
+    public House getHouseToRent() {
+        return houseToRent;
+    }
+
+    public void setHouseToRent(House houseToRent) {
+        this.houseToRent = houseToRent;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

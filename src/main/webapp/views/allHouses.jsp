@@ -17,8 +17,9 @@
     <tr>
         <td>Nazwa </td>
         <td>Adres </td>
-        <td>Cena </td>
+        <td><div><a href="/house/allPriceAsc">Cena </a></div>  </td>
         <td>Szczegóły </td>
+        <td>Wynajem </td>
     </tr>
     <c:forEach items="${houseList}"  var="house">
         <tr>
@@ -26,9 +27,7 @@
             <td>${house.adress} </td>
             <td>${house.price} </td>
             <td> <div><a href="/house/details/${house.id}">Szczegóły </a></div>   </td>
-
-
-
+            <td> <div><a href="/house/rent/${house.id}">Wynajmij </a></div> </td>
         </tr>
     </c:forEach>
 </table>

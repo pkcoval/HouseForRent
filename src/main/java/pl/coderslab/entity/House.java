@@ -4,7 +4,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -26,8 +28,19 @@ public class House {
     @OneToMany(mappedBy = "houses")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> commentList;
+    @OneToMany( mappedBy = "houseToRent")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<User> userList = new ArrayList<>();
 
     public House() {
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     public void setId(long id) {
@@ -111,10 +124,3 @@ public class House {
         this.endRent = endRent;
     }
 }
-//    • nazwa
-//    • adres
-//    • dostępność ( czy można go wynająć w danym okresie)
-//    • cena
-//    • wyposażenie jakie chce klient
-//    • ocena
-//    • komentarze użytkowników
