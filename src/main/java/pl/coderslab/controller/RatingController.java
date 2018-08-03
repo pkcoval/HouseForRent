@@ -36,7 +36,7 @@ public class RatingController {
             return "addRating";
         }
         ratingRepository.save(rating);
-        return "ocena dodana";
+        return "operationCompleted";
     }
 
     @ModelAttribute("allHouse")

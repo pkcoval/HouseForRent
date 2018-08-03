@@ -16,6 +16,10 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+
+            <property name="hibernate.use_sql_comments" value="true" />
+            <!--dodane podczas koncowego projektu przy zapisie rezerwacji-->
+
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.MySQL57Dialect" />
             <property name="hibernate.connection.useUnicode" value="true" />

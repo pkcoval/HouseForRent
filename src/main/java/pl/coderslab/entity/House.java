@@ -4,8 +4,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.sql.Date;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -22,6 +22,9 @@ public class House {
     private boolean towel;
     private boolean bedclothes;
     private double price;
+    @OneToMany(mappedBy = "houseReservation")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Reservation> reservationList;
     @OneToMany(mappedBy = "house")
     @LazyCollection(LazyCollectionOption.FALSE) // jezeli mamy dwa Egery to sypie bledami ---- dodane ze stack
     private List<Rating> ratingList;
@@ -122,5 +125,13 @@ public class House {
 
     public void setEndRent(Date endRent) {
         this.endRent = endRent;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 }

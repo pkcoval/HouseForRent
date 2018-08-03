@@ -14,7 +14,7 @@
 <body>
 
 <form:form method="post" modelAttribute="comment">
-    <div>Dodaj komentarz <form:input path="comment" />   <form:errors path="comment" cssStyle="color: #dc0001"  /> </div>
+    <div>Dodaj komentarz <form:textarea path="comment" />   <form:errors path="comment" cssStyle="color: #dc0001"  /> </div>
     <div>Wybierz domek <form:select itemLabel="name" itemValue="id" path="houses.id" items="${allHouse}"/></div>
 
     <input type="submit" value="Save">

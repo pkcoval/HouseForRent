@@ -29,7 +29,7 @@ public class UserController {
             return "addUser";
         }
         userRepository.save(user);
-        return "user dodany";
+        return "operationCompleted";
     }
     @ResponseBody
     @GetMapping("/rent/{id}")

@@ -15,19 +15,33 @@
 
 <table border="1">
     <tr>
-        <td>Nazwa </td>
-        <td>Adres </td>
-        <td><div><a href="/house/allPriceAsc">Cena </a></div>  </td>
-        <td>Szczegóły </td>
-        <td>Wynajem </td>
+        <th>Nazwa </th>
+        <th>Adres </th>
+        <th><div>
+            <form>
+                <input type="button" value="Cena " onclick="window.location.href='/house/allPriceAsc'"/>
+            </form>
+        </div>  </th>
+        <th>Szczegóły </th>
+        <th>Wynajem </th>
     </tr>
+
+
     <c:forEach items="${houseList}"  var="house">
         <tr>
             <td>${house.name} </td>
             <td>${house.adress} </td>
             <td>${house.price} </td>
-            <td> <div><a href="/house/details/${house.id}">Szczegóły </a></div>   </td>
-            <td> <div><a href="/house/rent/${house.id}">Wynajmij </a></div> </td>
+            <td>
+                <form>
+                    <input type="button" value="Szczegóły " onclick="window.location.href='/house/details/${house.id}'"/>
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input type="button" value="Wynajmij " onclick="window.location.href='/house/rent/${house.id}'"/>
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>

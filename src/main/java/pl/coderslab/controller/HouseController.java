@@ -5,14 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.entity.Comment;
-import pl.coderslab.entity.House;
-import pl.coderslab.entity.Rating;
-import pl.coderslab.entity.User;
+import pl.coderslab.entity.*;
 import pl.coderslab.repository.HouseRepository;
+import pl.coderslab.repository.ReservationRepository;
 import pl.coderslab.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -24,6 +23,9 @@ public class HouseController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
 
 //    @ResponseBody
 //    @GetMapping("/rating/{id}")
@@ -69,27 +71,74 @@ public class HouseController {
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.GET)
     public String rent(@PathVariable long id, Model model) {
         House houseToRent = houseRepository.findOne(id);
+//        Reservation reservation = new Reservation();
+//        model.addAttribute("reservation", reservation);
         model.addAttribute("houseToRent", houseToRent);
         return "rent";
     }
 
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-    public String processEdit(@ModelAttribute House houseToRent, BindingResult result,  @PathVariable long id) {
+    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id) {
         houseRepository.save(houseToRent);
-        User user =houseToRent.getUserList().get(0);
+        User user = houseToRent.getUserList().get(0);
         user.setHouseToRent(houseToRent);
+
+        Reservation reservation1 = new Reservation();
+        reservation1.setHouseReservation(houseToRent);
+
+        List<Reservation> listR = reservationRepository.findByHouseReservation_Id(id);
+        System.out.println(houseToRent.getStartRent().toLocalDate().getYear());
+        System.out.println(listR);
+
+        boolean reservationStatus = false;
+        for (Reservation r : listR) {
+            int reservationStart = r.getStartRent().toLocalDate().getDayOfMonth();
+            int reservationEnd = r.getEndRent().toLocalDate().getDayOfMonth();
+            int newStart = houseToRent.getStartRent().toLocalDate().getDayOfMonth();
+            int newEnd = houseToRent.getEndRent().toLocalDate().getDayOfMonth();
+
+            if (newStart > newEnd) {
+                return "redirect:/house/dataFalse";
+            }
+
+            if (r.getStartRent().toLocalDate().getYear() == houseToRent.getStartRent().toLocalDate().getYear() &&
+                    r.getStartRent().toLocalDate().getMonth() == houseToRent.getStartRent().toLocalDate().getMonth()) {
+                if (  (newStart > reservationStart && newStart < reservationEnd) ||
+                        newEnd > reservationStart && newEnd < reservationEnd ||
+                        newStart < reservationStart && newEnd > reservationEnd ||
+                        newStart == reservationStart && newEnd >= reservationEnd ||
+                        newStart <= reservationStart && newEnd == reservationEnd) {
+                    reservationStatus = true;
+                }
+            }
+        }
+
+        if (reservationStatus == true) {
+            return "redirect:/house/reservation/"+id;
+        } else {
+            reservation1.setStartRent(houseToRent.getStartRent());
+            reservation1.setEndRent(houseToRent.getEndRent());
+            reservationRepository.save(reservation1);
+        }
         userRepository.save(user);
 
-        return "domek wynajety";
+        return "operationCompleted";
     }
 
-//    @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-//    public String processEdit(@RequestParam String name, @PathVariable long id) {
-//        System.out.println(name);
-////        houseRepository.save(houseToRent);
-//        return "domek wynajety";
-//    }
+    @RequestMapping(value = "/dataFalse", method = RequestMethod.GET)
+    public String reservation() {
 
+        return "dataFalse";
+    }
+
+    @RequestMapping(value = "/reservation/{id}", method = RequestMethod.GET)
+    public String reservation(@PathVariable long id, Model model) {
+
+
+        List<Reservation> reservationList = houseRepository.findOne(id).getReservationList();
+        model.addAttribute("reservationList", reservationList);
+        return "reservation";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/userList/{id}", method = RequestMethod.GET)

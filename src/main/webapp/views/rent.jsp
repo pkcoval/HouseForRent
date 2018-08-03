@@ -21,18 +21,25 @@
 
 
     <p>Wynajmij domek o nazwie ${houseToRent.name}</p>
-    <p>Cena domku: ${houseToRent.price} zł</p>
+    <p>Cena domku: ${houseToRent.price} zł za dzień </p>
     <div><form:hidden path="name" />
     <div><form:hidden path="adress" />
     <div><form:hidden path="price" />
         <div>Od kiedy <form:input path="startRent" title="Od kiedy" type="date" /></div>
         <div>Do kiedy <form:input path="endRent" title="Do kiedy" type="date" /></div>
+
     <div>Czy chcesz dodatkowo ręcznik? Dopłacisz 10zł <form:checkbox path="towel" title="Czy chcesz ręcznik?" value="false" /></div>
     <div>Czy chcesz dodatkowo pościel? Dopłacisz 20zł <form:checkbox path="bedclothes" title="Czy chcesz pościel?" value="false" /></div>
     <div>Wybierz użytkownika <form:select itemLabel="firstName" itemValue="id"  path="userList" items="${allUsers}"/></div>
 
     <input type="submit" value="Save">
 </form:form>
+<%--<form:form method="post" modelAttribute="reservation">--%>
+        <%--<div>Od kiedy <form:input path="startRent" title="Od kiedy" type="date" /></div>--%>
+        <%--<div>Do kiedy <form:input path="endRent" title="Do kiedy" type="date" /></div>--%>
+        <%--</form:form>--%>
+
+
 
 </body>
 </html>

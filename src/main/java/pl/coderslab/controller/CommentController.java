@@ -37,7 +37,7 @@ public class CommentController {
             return "addComment";
         }
         commentRepository.save(comment);
-        return "komentarz dodany";
+        return "operationCompleted";
     }
 
 
