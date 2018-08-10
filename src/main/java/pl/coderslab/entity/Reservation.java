@@ -10,10 +10,29 @@ public class Reservation {
     private long id;
     private Date startRent;
     private Date endRent;
+    private double price;
+    private boolean towel;
+    private boolean bedclothes;
     @ManyToOne
     private House houseReservation;
 
     public Reservation() {
+    }
+
+    public boolean isTowel() {
+        return towel;
+    }
+
+    public void setTowel(boolean towel) {
+        this.towel = towel;
+    }
+
+    public boolean isBedclothes() {
+        return bedclothes;
+    }
+
+    public void setBedclothes(boolean bedclothes) {
+        this.bedclothes = bedclothes;
     }
 
     public long getId() {
@@ -46,5 +65,13 @@ public class Reservation {
 
     public void setHouseReservation(House houseReservation) {
         this.houseReservation = houseReservation;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

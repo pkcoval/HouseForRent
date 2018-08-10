@@ -6,27 +6,31 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/fragments/header.jsp" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<form>
-    <input type="button" value="Dodaj użytkownika" onclick="window.location.href='/user/add'"/>
-</form>
+<%--<form>--%>
+    <%--<input type="button" value="Dodaj użytkownika" onclick="window.location.href='/user/add'"/>--%>
+<%--</form>--%>
 
-<form>
-    <input type="button" value="Wszystkie domki" onclick="window.location.href='/house/all'"/>
-</form>
+<%--<form>--%>
+    <%--<input type="button" value="Wszystkie domki" onclick="window.location.href='/house/all'"/>--%>
+<%--</form>--%>
 
-<form>
-    <input type="button" value="Dodaj komentarz do domku" onclick="window.location.href='/comment/add'"/>
-</form>
+<%--<form>--%>
+    <%--<input type="button" value="Dodaj komentarz do domku" onclick="window.location.href='/comment/add'"/>--%>
+<%--</form>--%>
 
-<form>
-    <input type="button" value="Dodaj ocene domku" onclick="window.location.href='/rating/add'"/>
-</form>
+<%--<form>--%>
+    <%--<input type="button" value="Dodaj ocene domku" onclick="window.location.href='/rating/add'"/>--%>
+<%--</form>--%>
 
+<%--<form>--%>
+    <%--<input type="button" value="Użytkownicy" onclick="window.location.href='/user/all'"/>--%>
+<%--</form>--%>
 
 </body>
 </html>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="/fragments/header.jsp" %>
 <html>
 <head>
     <title>Title</title>
@@ -17,7 +18,7 @@
 
 <table border="1">
     <tr>
-        <td>Reserwacja od </td>
+        <td>Rezerwacja od </td>
         <td>Rezerwacja do </td>
 
     </tr>

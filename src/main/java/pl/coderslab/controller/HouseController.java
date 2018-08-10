@@ -83,19 +83,33 @@ public class HouseController {
         User user = houseToRent.getUserList().get(0);
         user.setHouseToRent(houseToRent);
 
+
         Reservation reservation1 = new Reservation();
         reservation1.setHouseReservation(houseToRent);
 
         List<Reservation> listR = reservationRepository.findByHouseReservation_Id(id);
-        System.out.println(houseToRent.getStartRent().toLocalDate().getYear());
-        System.out.println(listR);
+
+        int newStart = houseToRent.getStartRent().toLocalDate().getDayOfMonth();
+        int newEnd = houseToRent.getEndRent().toLocalDate().getDayOfMonth();
+
+        double price = houseToRent.getPrice();
+        if (houseToRent.isBedclothes() == true) {
+            price = price + 20.0;
+            reservation1.setBedclothes(true);
+        }
+        if (houseToRent.isTowel() == true) {
+            price = price + 10.0;
+            reservation1.setTowel(true);
+        }
+        int rentingDay = newEnd - newStart;
+        double endPrice = price * rentingDay;
 
         boolean reservationStatus = false;
         for (Reservation r : listR) {
             int reservationStart = r.getStartRent().toLocalDate().getDayOfMonth();
             int reservationEnd = r.getEndRent().toLocalDate().getDayOfMonth();
-            int newStart = houseToRent.getStartRent().toLocalDate().getDayOfMonth();
-            int newEnd = houseToRent.getEndRent().toLocalDate().getDayOfMonth();
+
+
 
             if (newStart > newEnd) {
                 return "redirect:/house/dataFalse";
@@ -118,6 +132,9 @@ public class HouseController {
         } else {
             reservation1.setStartRent(houseToRent.getStartRent());
             reservation1.setEndRent(houseToRent.getEndRent());
+            reservation1.setPrice(endPrice);
+            List<Reservation> reservationList = user.getReservationList();
+            reservationList.add(reservation1);
             reservationRepository.save(reservation1);
         }
         userRepository.save(user);

@@ -3,6 +3,8 @@ package pl.coderslab.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -11,7 +13,9 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank
+    @Min(1)
+    @Max(6)
+    @NotNull
     private int rating;
     @ManyToOne
     House house;

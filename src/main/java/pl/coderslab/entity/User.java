@@ -1,5 +1,7 @@
 package pl.coderslab.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -24,6 +26,9 @@ public class User {
     private String email;
     @ManyToOne
     private House houseToRent;
+    @OneToMany()
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Reservation> reservationList;
 
 
     public User() {
@@ -69,5 +74,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 }

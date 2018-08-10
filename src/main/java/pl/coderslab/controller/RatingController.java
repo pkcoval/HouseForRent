@@ -25,6 +25,7 @@ public class RatingController {
     @Autowired
     HouseRepository houseRepository;
 
+
     @GetMapping("/add")
     public String addUser(@ModelAttribute Rating rating) {
         return "addRating";
