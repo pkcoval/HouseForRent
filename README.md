@@ -22,3 +22,5 @@ oraz końcową cenę wynajmu
  # Technologie:
  
  Spring, Hibernate, 
+ 
+![Example screenshot](./screen/rzut.png)
