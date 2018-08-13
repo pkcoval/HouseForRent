@@ -23,4 +23,5 @@ oraz końcową cenę wynajmu
  
  Spring, Hibernate, 
  
-![Example screenshot](./screen/rzut.png)
+![Example screenshot](./s/domki.png)
+![Example screenshot](./s/rezerwacej.png)
