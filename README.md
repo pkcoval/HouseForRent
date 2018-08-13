@@ -16,3 +16,9 @@ oraz końcową cenę wynajmu
 -Możemy dodawać nowych klientów
 
 -Możemy przeglądać wprowadzone domki ich dane oraz szczegóły takie jak komentarz i ocenę
+
+
+
+ # Technologie:
+ 
+ Spring, Hibernate, 
