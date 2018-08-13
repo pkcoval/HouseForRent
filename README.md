@@ -19,7 +19,7 @@ oraz końcową cenę wynajmu
 
 
 
- # Technologie:
+ ## Technologie:
  
  Spring, Hibernate, 
  
