@@ -36,12 +36,13 @@ public class RatingController {
         if (result.hasErrors()) {
             return "addRating";
         }
+        rating.getHouse().setAverage((rating.getHouse().getAverage() + rating.getRating()) / 2);
         ratingRepository.save(rating);
         return "operationCompleted";
     }
 
     @ModelAttribute("allHouse")
-    public List<House> getGroups(){
+    public List<House> getGroups() {
 
         return houseRepository.findAll();
     }

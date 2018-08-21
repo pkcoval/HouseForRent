@@ -78,11 +78,26 @@ public class HouseController {
     }
 
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id) {
+    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id, Model model) {
+
+
+
+        double resultRating = 0.0;
+        List<Rating> ratings = houseRepository.findOne(id).getRatingList();
+        for (Rating r : ratings) {
+            resultRating += r.getRating();
+        }
+        resultRating = resultRating / ratings.size();
+
+
+        model.addAttribute("resultRating", String.format("%.2f", resultRating)); // nic nie wyswietla tak jak by nie dodal tego atrybutu
+
+        houseRepository.findOne(id).setAverage(resultRating);//ustawiamy wynajetemu domkowi  srednia nie dziala
+
+
         houseRepository.save(houseToRent);
         User user = houseToRent.getUserList().get(0);
         user.setHouseToRent(houseToRent);
-
 
         Reservation reservation1 = new Reservation();
         reservation1.setHouseReservation(houseToRent);
