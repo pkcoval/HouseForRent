@@ -1,7 +1,7 @@
 # RENT A HOUSE
 
 
-PROJEKT STRONY INTERNETOWEJ OBSŁGUJĄCEJ WYNAJMOWANIE DOMKÓW:
+PROJEKT STRONY INTERNETOWEJ OBSŁUGUJĄCEJ WYNAJMOWANIE DOMKÓW:
 
 FUNKCJONALNOSCI:
 
@@ -23,4 +23,7 @@ oraz końcową cenę wynajmu
  
  Spring, Hibernate, 
  
-![Example screenshot](./screen/rzut.png)
+ ## Screen:
+ 
+![Example screenshot](./s/domki.png)
+![Example screenshot](./s/rezerwacej.png)
