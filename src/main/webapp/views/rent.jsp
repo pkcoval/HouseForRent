@@ -24,7 +24,7 @@
     <p>Wynajmij domek o nazwie ${houseToRent.name}</p>
     <p>Cena domku: ${houseToRent.price} zł za dzień </p>
     <%--<p>Ocena domku ${houseToRent.name}: ${houseToRent.Average} </p>--%>
-    <p>Ocena domku ${houseToRent.name}: ${Average} </p>
+    <p>Ocena domku ${houseToRent.name}: ${houseToRent.Average} </p>
     <div><form:hidden path="name" />
     <div><form:hidden path="adress" />
     <div><form:hidden path="price" />

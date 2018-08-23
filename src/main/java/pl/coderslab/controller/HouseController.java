@@ -88,10 +88,9 @@ public class HouseController {
             resultRating += r.getRating();
         }
         resultRating = resultRating / ratings.size();
+        houseToRent.setAverage(resultRating);
 
-
-        model.addAttribute("resultRating", String.format("%.2f", resultRating)); // nic nie wyswietla tak jak by nie dodal tego atrybutu
-
+        model.addAttribute("resultRating", resultRating); // nic nie wyswietla tak jak by nie dodal tego atrybutu
         houseRepository.findOne(id).setAverage(resultRating);//ustawiamy wynajetemu domkowi  srednia nie dziala
 
 
@@ -103,6 +102,7 @@ public class HouseController {
         reservation1.setHouseReservation(houseToRent);
 
         List<Reservation> listR = reservationRepository.findByHouseReservation_Id(id);
+
 
         int newStart = houseToRent.getStartRent().toLocalDate().getDayOfMonth();
         int newEnd = houseToRent.getEndRent().toLocalDate().getDayOfMonth();
@@ -123,9 +123,7 @@ public class HouseController {
         for (Reservation r : listR) {
             int reservationStart = r.getStartRent().toLocalDate().getDayOfMonth();
             int reservationEnd = r.getEndRent().toLocalDate().getDayOfMonth();
-
-
-
+            
             if (newStart > newEnd) {
                 return "redirect:/house/dataFalse";
             }
