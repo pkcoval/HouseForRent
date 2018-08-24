@@ -43,8 +43,13 @@
             <td>${reservation.startRent} </td>
             <td>${reservation.endRent} </td>
             <td>${reservation.price} </td>
-            <td>${reservation.towel} </td>
-            <td>${reservation.bedclothes} </td>
+            <td>
+                <c:if test="${true == reservation.towel}"> TAK </c:if>
+                <c:if test="${false == reservation.towel}"> NIE </c:if>
+            </td>
+            <td>
+                <c:if test="${true == reservation.bedclothes}"> TAK </c:if>
+                <c:if test="${false == reservation.bedclothes}"> NIE </c:if> </td>
             <td>${reservation.houseReservation.name} </td>
         </tr>
     </c:forEach>

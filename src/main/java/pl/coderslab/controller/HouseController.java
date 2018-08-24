@@ -71,16 +71,6 @@ public class HouseController {
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.GET)
     public String rent(@PathVariable long id, Model model) {
         House houseToRent = houseRepository.findOne(id);
-//        Reservation reservation = new Reservation();
-//        model.addAttribute("reservation", reservation);
-        model.addAttribute("houseToRent", houseToRent);
-        return "rent";
-    }
-
-    @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id, Model model) {
-
-
 
         double resultRating = 0.0;
         List<Rating> ratings = houseRepository.findOne(id).getRatingList();
@@ -88,11 +78,16 @@ public class HouseController {
             resultRating += r.getRating();
         }
         resultRating = resultRating / ratings.size();
-        houseToRent.setAverage(resultRating);
 
-        model.addAttribute("resultRating", resultRating); // nic nie wyswietla tak jak by nie dodal tego atrybutu
-        houseRepository.findOne(id).setAverage(resultRating);//ustawiamy wynajetemu domkowi  srednia nie dziala
+//        Reservation reservation = new Reservation();
+//        model.addAttribute("reservation", reservation);
+        model.addAttribute("houseToRent", houseToRent);
+        model.addAttribute("resultRating", resultRating);
+        return "rent";
+    }
 
+    @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
+    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id, Model model) {
 
         houseRepository.save(houseToRent);
         User user = houseToRent.getUserList().get(0);
@@ -123,7 +118,7 @@ public class HouseController {
         for (Reservation r : listR) {
             int reservationStart = r.getStartRent().toLocalDate().getDayOfMonth();
             int reservationEnd = r.getEndRent().toLocalDate().getDayOfMonth();
-            
+
             if (newStart > newEnd) {
                 return "redirect:/house/dataFalse";
             }
