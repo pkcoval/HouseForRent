@@ -10,6 +10,15 @@ import pl.coderslab.repository.HouseRepository;
 import pl.coderslab.repository.ReservationRepository;
 import pl.coderslab.repository.UserRepository;
 
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
@@ -17,6 +26,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/house")
 public class HouseController {
+
+    double endPrice = 0.0;
+    String reservationTowelToString = "";
+    String reservationBedclothesToString = "";
+
+    static Properties mailServerProperties;
+    static Session getMailSession;
+    static MimeMessage generateMailMessage;
+
 
     @Autowired
     HouseRepository houseRepository;
@@ -87,7 +105,7 @@ public class HouseController {
     }
 
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id, Model model) {
+    public String processEdit(@ModelAttribute House houseToRent, @PathVariable long id, Model model) throws AddressException, MessagingException {
 
         houseRepository.save(houseToRent);
         User user = houseToRent.getUserList().get(0);
@@ -112,7 +130,7 @@ public class HouseController {
             reservation1.setTowel(true);
         }
         int rentingDay = newEnd - newStart;
-        double endPrice = price * rentingDay;
+        endPrice = price * rentingDay;
 
         boolean reservationStatus = false;
         for (Reservation r : listR) {
@@ -125,7 +143,7 @@ public class HouseController {
 
             if (r.getStartRent().toLocalDate().getYear() == houseToRent.getStartRent().toLocalDate().getYear() &&
                     r.getStartRent().toLocalDate().getMonth() == houseToRent.getStartRent().toLocalDate().getMonth()) {
-                if (  (newStart > reservationStart && newStart < reservationEnd) ||
+                if ((newStart > reservationStart && newStart < reservationEnd) ||
                         newEnd > reservationStart && newEnd < reservationEnd ||
                         newStart < reservationStart && newEnd > reservationEnd ||
                         newStart == reservationStart && newEnd >= reservationEnd ||
@@ -136,7 +154,7 @@ public class HouseController {
         }
 
         if (reservationStatus == true) {
-            return "redirect:/house/reservation/"+id;
+            return "redirect:/house/reservation/" + id;
         } else {
             reservation1.setStartRent(houseToRent.getStartRent());
             reservation1.setEndRent(houseToRent.getEndRent());
@@ -144,6 +162,55 @@ public class HouseController {
             List<Reservation> reservationList = user.getReservationList();
             reservationList.add(reservation1);
             reservationRepository.save(reservation1);
+
+            if(reservation1.isTowel() == true){ reservationTowelToString = "recznik";}
+            if(reservation1.isBedclothes() == true){ reservationBedclothesToString = "posciel";}
+
+            // Step1
+            System.out.println("\n 1st ===> setup Mail Server Properties..");
+            mailServerProperties = System.getProperties();
+            mailServerProperties.put("mail.smtp.port", "587");
+            mailServerProperties.put("mail.smtp.auth", "true");
+            mailServerProperties.put("mail.smtp.starttls.enable", "true");
+            System.out.println("Mail Server Properties have been setup successfully..");
+
+            // Step2
+            System.out.println("\n\n 2nd ===> get Mail Session..");
+            getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+            generateMailMessage = new MimeMessage(getMailSession);
+            generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("pkcoval@gmail.com"));
+//        generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("test2@crunchify.com"));
+            generateMailMessage.setSubject("HouseForRent reservation");
+//        generateMailMessage.setFrom("pkcoval@gmail.com");
+            String emailBody = "Witamy " + "<br> Zarezerwowales/as domek o nazwie:  " + reservation1.getHouseReservation().getName()
+                    +" od "
+                    + reservation1.getStartRent()
+                    +" do "
+                    + reservation1.getEndRent()
+                    +" cena wynajmy to "
+                    + reservation1.getPrice()
+                    +" zl. "
+                    +"<br> Dodatkowo zamowiles "
+                    + reservationTowelToString
+                    +" "
+                    + reservationBedclothesToString
+                    + "<br><br> Pozdrawiamy, <br>HouseForRent";
+            generateMailMessage.setContent(emailBody, "text/html");
+            System.out.println("Mail Session has been created successfully..");
+
+            // Step3
+            System.out.println("\n\n 3rd ===> Get Session and Send mail");
+            Transport transport = getMailSession.getTransport("smtp");
+
+            // Enter your correct gmail UserID and Password
+            // if you have 2FA enabled then provide App Specific Password
+            transport.connect("smtp.gmail.com", "pkcoval", "Pkcoval0");
+            transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+            transport.close();
+
+
+//            generateAndSendEmail();
+            System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
         }
         userRepository.save(user);
 
@@ -184,6 +251,7 @@ public class HouseController {
     public String allHousesByPrice(Model model) {
         List<House> houseList = houseRepository.findAllByOrderByPriceAsc();
         model.addAttribute("houseList", houseList);
+//        public static void generateAndSendEmail() throws AddressException, MessagingException {
         return "allHouses";
     }
 
