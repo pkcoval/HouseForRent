@@ -3,7 +3,7 @@
 
 PROJEKT STRONY INTERNETOWEJ OBSŁUGUJĄCEJ WYNAJMOWANIE DOMKÓW:
 
-FUNKCJONALNOSCI:
+ ## Funkcjonalności:
 
 -Klient może wynająć domek po wcześniejszym sprawdzeniu
 czy w danym okresie domek nie jest już wynajęty
