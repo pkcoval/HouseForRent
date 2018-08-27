@@ -30,36 +30,16 @@ public class HouseController {
     double endPrice = 0.0;
     String reservationTowelToString = "";
     String reservationBedclothesToString = "";
-
     static Properties mailServerProperties;
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-
     @Autowired
     HouseRepository houseRepository;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     ReservationRepository reservationRepository;
-
-//    @ResponseBody
-//    @GetMapping("/rating/{id}")
-//    public String averageRating(@PathVariable long id, Model model) {
-//
-//        double resultRating = 0.0;
-//        List<Rating> ratings = houseRepository.findOne(id).getRatingList();
-//        for (Rating r : ratings) {
-//            resultRating += r.getRating();
-//        }
-//
-//        resultRating = resultRating / ratings.size();
-//
-//        return "Ocena: " + String.format("%.2f", resultRating);
-//    }
-
 
     @GetMapping("/comment/{id}")
     public String allComments(@PathVariable long id, Model model) {
@@ -96,9 +76,6 @@ public class HouseController {
             resultRating += r.getRating();
         }
         resultRating = resultRating / ratings.size();
-
-//        Reservation reservation = new Reservation();
-//        model.addAttribute("reservation", reservation);
         model.addAttribute("houseToRent", houseToRent);
         model.addAttribute("resultRating", resultRating);
         return "rent";
@@ -163,9 +140,9 @@ public class HouseController {
             reservationList.add(reservation1);
             reservationRepository.save(reservation1);
 
+            //            SENDMAIL!!!!
             if(reservation1.isTowel() == true){ reservationTowelToString = "recznik";}
             if(reservation1.isBedclothes() == true){ reservationBedclothesToString = "posciel";}
-
             // Step1
             System.out.println("\n 1st ===> setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
@@ -208,8 +185,6 @@ public class HouseController {
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
 
-
-//            generateAndSendEmail();
             System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
         }
         userRepository.save(user);
