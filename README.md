@@ -3,7 +3,7 @@
 
 PROJEKT STRONY INTERNETOWEJ OBSŁUGUJĄCEJ WYNAJMOWANIE DOMKÓW:
 
-FUNKCJONALNOSCI:
+ ## Funkcjonalności:
 
 -Klient może wynająć domek po wcześniejszym sprawdzeniu
 czy w danym okresie domek nie jest już wynajęty
@@ -16,6 +16,8 @@ oraz końcową cenę wynajmu
 -Możemy dodawać nowych klientów
 
 -Możemy przeglądać wprowadzone domki ich dane oraz szczegóły takie jak komentarz i ocenę
+
+-Po zarezerwowaniu domku wysyłany jest email do klienta z datą pobytu, cena wynajmu i czy wybrał dodatkowo pościel i recznik
 
 
 
