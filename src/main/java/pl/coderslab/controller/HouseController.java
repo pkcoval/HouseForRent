@@ -226,7 +226,6 @@ public class HouseController {
     public String allHousesByPrice(Model model) {
         List<House> houseList = houseRepository.findAllByOrderByPriceAsc();
         model.addAttribute("houseList", houseList);
-//        public static void generateAndSendEmail() throws AddressException, MessagingException {
         return "allHouses";
     }
 
