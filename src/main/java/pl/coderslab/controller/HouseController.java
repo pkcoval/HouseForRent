@@ -97,6 +97,7 @@ public class HouseController {
         int newStart = houseToRent.getStartRent().toLocalDate().getDayOfMonth();
         int newEnd = houseToRent.getEndRent().toLocalDate().getDayOfMonth();
 
+
         double price = houseToRent.getPrice();
         if (houseToRent.isBedclothes() == true) {
             price = price + 20.0;
@@ -108,6 +109,7 @@ public class HouseController {
         }
         int rentingDay = newEnd - newStart;
         endPrice = price * rentingDay;
+        reservation1.setPrice(endPrice);
 
         boolean reservationStatus = false;
         for (Reservation r : listR) {
@@ -135,14 +137,18 @@ public class HouseController {
         } else {
             reservation1.setStartRent(houseToRent.getStartRent());
             reservation1.setEndRent(houseToRent.getEndRent());
-            reservation1.setPrice(endPrice);
+
             List<Reservation> reservationList = user.getReservationList();
             reservationList.add(reservation1);
             reservationRepository.save(reservation1);
 
             //            SENDMAIL!!!!
-            if(reservation1.isTowel() == true){ reservationTowelToString = "recznik";}
-            if(reservation1.isBedclothes() == true){ reservationBedclothesToString = "posciel";}
+            if (reservation1.isTowel() == true) {
+                reservationTowelToString = "recznik";
+            }
+            if (reservation1.isBedclothes() == true) {
+                reservationBedclothesToString = "posciel";
+            }
             // Step1
             System.out.println("\n 1st ===> setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
@@ -160,16 +166,16 @@ public class HouseController {
             generateMailMessage.setSubject("HouseForRent reservation");
 //        generateMailMessage.setFrom("pkcoval@gmail.com");
             String emailBody = "Witamy " + "<br> Zarezerwowales/as domek o nazwie:  " + reservation1.getHouseReservation().getName()
-                    +" od "
+                    + " od "
                     + reservation1.getStartRent()
-                    +" do "
+                    + " do "
                     + reservation1.getEndRent()
-                    +" cena wynajmy to "
+                    + " cena wynajmy to "
                     + reservation1.getPrice()
-                    +" zl. "
-                    +"<br> Dodatkowo zamowiles "
+                    + " zl. "
+                    + "<br> Dodatkowo zamowiles "
                     + reservationTowelToString
-                    +" "
+                    + " "
                     + reservationBedclothesToString
                     + "<br><br> Pozdrawiamy, <br>HouseForRent";
             generateMailMessage.setContent(emailBody, "text/html");
@@ -228,6 +234,13 @@ public class HouseController {
         model.addAttribute("houseList", houseList);
         return "allHouses";
     }
+
+//    @GetMapping("/allNameAsc")
+//    public String allNameAsc(Model model) {
+//        List<House> houseList = houseRepository.findAllByOrOrderByName();
+//        model.addAttribute("houseList", houseList);
+//        return "allHouses";
+//    }
 
 
     @ModelAttribute("allUsers")

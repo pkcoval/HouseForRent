@@ -16,13 +16,21 @@
 
 <table border="1">
     <tr>
-        <th>Nazwa </th>
+        <th>
+            <div>
+                <form>
+                    <input type="button" value="Nazwa " onclick="window.location.href='/house/allNameAsc'"/>
+                </form>
+            </div>
+        </th>
         <th>Adres </th>
-        <th><div>
+        <th>
+            <div>
             <form>
                 <input type="button" value="Cena " onclick="window.location.href='/house/allPriceAsc'"/>
             </form>
-        </div>  </th>
+            </div>
+        </th>
         <th>Szczegóły </th>
         <th>Wynajem </th>
     </tr>

@@ -12,4 +12,5 @@ public interface HouseRepository extends JpaRepository<House, Long> {
 
     List<House> findAllByOrderByPriceAsc ();
     List<House> findAllByOrderByPriceDesc ();
+//    List<House> findAllByOrOrderByName ();
 }

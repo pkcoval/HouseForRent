@@ -22,8 +22,8 @@ public class Comment {
         this.houses = houses;
     }
 
-    public Comment() {
-    }
+//    public Comment() {
+//    }
 
     public long getId() {
         return id;
