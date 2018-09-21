@@ -10,6 +10,7 @@ import pl.coderslab.repository.HouseRepository;
 import pl.coderslab.repository.ReservationRepository;
 import pl.coderslab.repository.UserRepository;
 
+import java.util.Arrays;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -228,6 +229,49 @@ public class HouseController {
         return "allHouses";
     }
 
+    //    @ResponseBody
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    public String allForSearch(@RequestParam double number, @RequestParam String wiekszyMniejszy, Model model) {
+
+        List<House> houseList;
+
+            if (wiekszyMniejszy.equals("wiekszy")) {
+                houseList = houseRepository.findByPriceGreaterThan(number);
+            } else if (wiekszyMniejszy.equals("mniejszy")) {
+                houseList = houseRepository.findByPriceLessThan(number);
+            }
+                houseList = houseRepository.findAll();
+
+
+        model.addAttribute("houseList", houseList);
+        return "allHouses";
+
+    }
+
+
+    @PostMapping ("/byName")
+    public String byName(Model model, @RequestParam String houseName) {
+        List<House> houseList = houseRepository.findByName(houseName);
+        model.addAttribute("houseList", houseList);
+        return "allHouses";
+    }
+
+    @PostMapping ("/byRating")
+    public String byRating(Model model, @RequestParam int number, @RequestParam String wiekszyMniejszy) {
+        List<House> houseList;
+
+        if (wiekszyMniejszy.equals("wiekszy")) {
+            houseList = houseRepository.findByRatingListIsGreaterThan(number);
+        } else if (wiekszyMniejszy.equals("mniejszy")) {
+            houseList = houseRepository.findByRatingListIsLessThan(number);
+        }
+        houseList = houseRepository.findAll();
+
+
+        model.addAttribute("houseList", houseList);
+        return "allHouses";
+    }
+
     @GetMapping("/allPriceAsc")
     public String allHousesByPrice(Model model) {
         List<House> houseList = houseRepository.findAllByOrderByPriceAsc();
@@ -235,12 +279,12 @@ public class HouseController {
         return "allHouses";
     }
 
-//    @GetMapping("/allNameAsc")
-//    public String allNameAsc(Model model) {
-//        List<House> houseList = houseRepository.findAllByOrOrderByName();
-//        model.addAttribute("houseList", houseList);
-//        return "allHouses";
-//    }
+    @GetMapping("/allNameAsc")
+    public String allNameAsc(Model model) {
+        List<House> houseList = houseRepository.findAllByOrderByNameDesc();
+        model.addAttribute("houseList", houseList);
+        return "allHouses";
+    }
 
 
     @ModelAttribute("allUsers")

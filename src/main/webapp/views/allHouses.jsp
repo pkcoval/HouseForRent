@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/fragments/header.jsp" %>
 <html>
 <head>
@@ -54,6 +55,37 @@
         </tr>
     </c:forEach>
 </table>
+
+<form:form method="post" >
+
+    <h3>Zaawansowane wyszukiwanie</h3>
+    Cena domku mniejsza/wieksza od: <input type="number" name="number"   >
+    <select name="wiekszyMniejszy">
+        <option value="wiekszy">wiekszy</option>
+        <option value="mniejszy">mniejszy</option>
+    </select>
+    <input type="submit" value="Szukaj"><br>
+
+</form:form>
+
+<form:form method="post"  action="/house/byRating" >
+
+    Ocena domku mniejsza/wieksza od: <input type="number" name="number"   >
+    <select name="wiekszyMniejszy">
+        <option value="wiekszy">wiekszy</option>
+        <option value="mniejszy">mniejszy</option>
+    </select>
+    <input type="submit" value="Szukaj"><br>
+
+</form:form>
+
+<form:form method="post" action="/house/byName">
+    <form>
+        Nazwa domku: <input type="text"  name="houseName" >
+        <input type="submit" value="Szukaj"><br>
+        <%--<input type="button" value="Szukaj " onclick="window.location.href='/byName/${houseName}'"/>--%>
+    </form>
+</form:form>
 
 </body>
 </html>
