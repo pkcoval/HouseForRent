@@ -230,17 +230,21 @@ public class HouseController {
     }
 
     //    @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @PostMapping ("/byPrice")
     public String allForSearch(@RequestParam double number, @RequestParam String wiekszyMniejszy, Model model) {
 
         List<House> houseList;
-
+        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
             if (wiekszyMniejszy.equals("wiekszy")) {
-                houseList = houseRepository.findByPriceGreaterThan(number);
+                houseList = houseRepository.findAllByPriceGreaterThan(number);
             } else if (wiekszyMniejszy.equals("mniejszy")) {
-                houseList = houseRepository.findByPriceLessThan(number);
-            }
+                System.out.println("mmmmmmmmmmmmmmmmmmmmmm");
+                houseList = houseRepository.findAllByPriceLessThan(number);
+            }else {
+
                 houseList = houseRepository.findAll();
+            }
+
 
 
         model.addAttribute("houseList", houseList);
@@ -257,15 +261,19 @@ public class HouseController {
     }
 
     @PostMapping ("/byRating")
-    public String byRating(Model model, @RequestParam int number, @RequestParam String wiekszyMniejszy) {
+    public String byRating(Model model, @RequestParam double number, @RequestParam String wiekszyMniejszy) {
+
         List<House> houseList;
 
         if (wiekszyMniejszy.equals("wiekszy")) {
-            houseList = houseRepository.findByRatingListIsGreaterThan(number);
+
+            houseList = houseRepository.findAllByAverageGreaterThan(number);
         } else if (wiekszyMniejszy.equals("mniejszy")) {
-            houseList = houseRepository.findByRatingListIsLessThan(number);
+            houseList = houseRepository.findAllByAverageLessThan(number);
+        }else {
+            houseList = houseRepository.findAll();
         }
-        houseList = houseRepository.findAll();
+
 
 
         model.addAttribute("houseList", houseList);

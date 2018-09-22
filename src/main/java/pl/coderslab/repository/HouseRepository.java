@@ -14,10 +14,12 @@ public interface HouseRepository extends JpaRepository<House, Long> {
     List<House> findAllByOrderByPriceAsc ();
     List<House> findAllByOrderByPriceDesc ();
     List<House> findAllByOrderByNameDesc ();
-    List<House> findByPriceLessThan(double price);
-    List<House> findByRatingListIsLessThan(int rating);
-    List<House> findByPriceGreaterThan(double price);
-    List<House> findByRatingListGreaterThan(int rating);
-    List<House> findByRatingListIsGreaterThan(int rating);
+
+    List<House> findAllByPriceLessThan(double price);
+    List<House> findAllByPriceGreaterThan(double price);
+
+    List<House> findAllByAverageLessThan(double rating);
+    List<House> findAllByAverageGreaterThan(double rating);
+
     List<House> findByName(String name);
 }

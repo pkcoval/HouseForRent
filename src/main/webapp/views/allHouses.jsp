@@ -56,7 +56,7 @@
     </c:forEach>
 </table>
 
-<form:form method="post" >
+<form:form method="post" action="/house/byPrice">
 
     <h3>Zaawansowane wyszukiwanie</h3>
     Cena domku mniejsza/wieksza od: <input type="number" name="number"   >

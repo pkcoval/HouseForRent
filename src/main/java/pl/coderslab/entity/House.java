@@ -22,7 +22,7 @@ public class House {
     private boolean towel;
     private boolean bedclothes;
     private double price;
-    private double Average;
+    private double average;
     @OneToMany(mappedBy = "houseReservation")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Reservation> reservationList;
@@ -40,11 +40,11 @@ public class House {
     }
 
     public double getAverage() {
-        return Average;
+        return average;
     }
 
     public void setAverage(double average) {
-        Average = average;
+        average = average;
     }
 
     public List<User> getUserList() {
