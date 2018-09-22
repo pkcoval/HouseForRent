@@ -234,11 +234,11 @@ public class HouseController {
     public String allForSearch(@RequestParam double number, @RequestParam String wiekszyMniejszy, Model model) {
 
         List<House> houseList;
-        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+
             if (wiekszyMniejszy.equals("wiekszy")) {
                 houseList = houseRepository.findAllByPriceGreaterThan(number);
             } else if (wiekszyMniejszy.equals("mniejszy")) {
-                System.out.println("mmmmmmmmmmmmmmmmmmmmmm");
+            
                 houseList = houseRepository.findAllByPriceLessThan(number);
             }else {
 
