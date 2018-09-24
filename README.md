@@ -19,6 +19,8 @@ oraz końcową cenę wynajmu
 
 -Po zarezerwowaniu domku wysyłany jest email do klienta z datą pobytu, cena wynajmu i czy wybrał dodatkowo pościel i recznik
 
+-Możemy wyszukiwać domki po nazwie, cenie i ocenie
+
 
 
  ## Technologie:
