@@ -225,6 +225,11 @@ public class HouseController {
     @GetMapping("/all")
     public String allHouses(Model model) {
         List<House> houseList = houseRepository.findAll();
+
+//       House house =  houseRepository.findAById(3);
+//        houseRepository.findOne((long) 4).setAverage(6);
+
+
         model.addAttribute("houseList", houseList);
         return "allHouses";
     }
@@ -238,7 +243,7 @@ public class HouseController {
             if (wiekszyMniejszy.equals("wiekszy")) {
                 houseList = houseRepository.findAllByPriceGreaterThan(number);
             } else if (wiekszyMniejszy.equals("mniejszy")) {
-            
+
                 houseList = houseRepository.findAllByPriceLessThan(number);
             }else {
 

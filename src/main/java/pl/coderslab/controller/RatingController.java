@@ -3,15 +3,13 @@ package pl.coderslab.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.House;
 import pl.coderslab.entity.Rating;
 import pl.coderslab.repository.HouseRepository;
 import pl.coderslab.repository.RatingRepository;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -36,8 +34,17 @@ public class RatingController {
         if (result.hasErrors()) {
             return "addRating";
         }
-        rating.getHouse().setAverage((rating.getHouse().getAverage() + rating.getRating()) / 2);
+        House houseForRating = rating.getHouse();
+        houseForRating.setAverage((houseForRating.getAverage() + rating.getRating()) / 2);
+
+
+//        System.out.println("nnn"+house.getName());//nie pobiera danych o domku name =null
+
+        System.out.println("zzz" + rating.getHouse().getAverage()); //pokazuje average = polowa wpisanej wartosci??
+//        houseRepository.save(houseForRating);
         ratingRepository.save(rating);
+
+
         return "operationCompleted";
     }
 

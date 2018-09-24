@@ -44,7 +44,7 @@ public class House {
     }
 
     public void setAverage(double average) {
-        average = average;
+        this.average = average;
     }
 
     public List<User> getUserList() {

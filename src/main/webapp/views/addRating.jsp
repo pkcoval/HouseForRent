@@ -16,7 +16,7 @@
 
 <form:form method="post" modelAttribute="rating">
     <div>Ocena <form:input  path="rating" />  <form:errors path="rating" cssStyle="color: #dc0001"  /> </div>
-    <div>Wybierz domek <form:select itemLabel="name" itemValue="id" path="house.id" items="${allHouse}"/></div>
+    <div>Wybierz domek <form:select itemLabel="name"  itemValue="id" path="house.id" items="${allHouse}"/></div>
 
     <input type="submit" value="Save">
 </form:form>
